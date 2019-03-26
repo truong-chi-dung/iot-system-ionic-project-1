@@ -1,0 +1,7 @@
+{
+  "name": "iotsystem",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
