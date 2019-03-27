@@ -9,3 +9,17 @@
 @import '~@ionic/angular/css/text-alignment.css';
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
+@import "theme/my-color.scss";
+
+$customColors: ('stop', 'running');
+
+@each $color in $customColors {
+    .ion-color-#{$color} {
+    --ion-color-base: var(--ion-color-#{$color});
+    --ion-color-base-rgb: var(--ion-color-#{$color}-rgb);
+    --ion-color-contrast: var(--ion-color-#{$color}-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-#{$color}-contrast-rgb);
+    --ion-color-shade: var(--ion-color-#{$color}-shade);
+    --ion-color-tint: var(--ion-color-#{$color}-tint);
+    }
+}
