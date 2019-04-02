@@ -9,15 +9,18 @@
 <ion-content>
   <div *ngIf="machines$ | async">
     <ion-card *ngFor="let machine of machines$ | async" (click)="onSelectMachine(machine)" [ngSwitch]="machine.status">
+      
       <ion-card-header>
         <ion-card-title>{{machine.machineName | uppercase}}</ion-card-title>
         <ion-card-subtitle *ngSwitchCase="0" color="stop">Stop</ion-card-subtitle>
         <ion-card-subtitle *ngSwitchCase="1" color="running">Running</ion-card-subtitle>
         <ion-card-subtitle *ngSwitchCase="2" color="danger">Emergency Stop</ion-card-subtitle>
       </ion-card-header>
+
       <ion-card-content>
-        
+
       </ion-card-content>
+      
     </ion-card>
   </div>
 </ion-content>
