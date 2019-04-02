@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Machine } from 'src/machine';
+import { filter } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

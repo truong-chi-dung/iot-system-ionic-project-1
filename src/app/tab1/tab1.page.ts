@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { AlertController } from '@ionic/angular';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
-import { Observable, Subject, interval } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { Observable, Subject, interval, Subscription } from 'rxjs';
+import { switchMap, takeUntil, map, filter } from 'rxjs/operators';
 
 import { Machine } from 'src/machine';
 import { MachineService } from '../machine.service';
@@ -13,30 +14,79 @@ import { MachineService } from '../machine.service';
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page implements OnInit{
+export class Tab1Page implements OnDestroy, OnInit{
 
   constructor(
     private machineService: MachineService,
-    public alertController: AlertController
+    private alertController: AlertController,
+    private localNotifications: LocalNotifications
   ) {}
 
-  //public machinesMap$: Observable<Machine[]> = this.machineService.getMachines();  
-  //private killTrigger: Subject<void> = new Subject();
-  //private refreshMachineData$: Observable<Machine[]> = interval(10000)
-  //.pipe(
-  //  takeUntil(this.killTrigger),
-  //  switchMap(()=>this.machinesMap$)
-  //);
-  //public machines$: Observable<Machine[]> = this.refreshMachineData$;
-  //ngOnDestroy(){
-  //  this.killTrigger.next();
-  //}  
+  
+  public machinesMap$: Observable<Machine[]>;
+  private refreshMachineData$: Observable<Machine[]>;
+  public emgMachines$: Observable<Machine[]>;
+
+  private killTrigger: Subject<void> = new Subject();  
 
   public machines$: Observable<Machine[]>;
+  
+  ngOnInit() {
+    this.machinesMap$ = this.machineService.getMachines();
+    this.refreshMachineData$ = interval(5000)
+    .pipe(
+      takeUntil(this.killTrigger),
+      switchMap(()=>this.machinesMap$)
+    );    
+    this.machines$ = this.refreshMachineData$;
+
+    this.emgMachines$ = this.refreshMachineData$.pipe(
+      map(machines => machines.filter(machine => machine.status===2))
+    );
+    this.emgMachines$.subscribe(
+      (emgMachinesInfo) => {
+        emgMachinesInfo.map(
+          emgMachineInfo => {
+            this.localNotifications.schedule({
+              title: `${emgMachineInfo.machineName}`,
+              text: 'Fuck up'
+            });
+            console.log(emgMachineInfo.machineName);
+          }
+        )
+      }
+    );
+  }
+
+  ngOnDestroy(){
+    this.killTrigger.next();
+  }  
+
+  /*public machines$: Observable<Machine[]>;
+  public emgMachines$: Observable<Machine[]>;
 
   ngOnInit() {
+    
     this.machines$ = this.machineService.getMachines();
-  }
+    
+    this.emgMachines$ = this.machineService.getMachines().pipe(
+      map(machines => machines.filter(machine => machine.status===2))
+    );
+
+    this.emgMachines$.subscribe(
+      (emgMachinesInfo) => {
+        emgMachinesInfo.map(
+          emgMachineInfo => {
+            this.localNotifications.schedule({
+              title: `${emgMachineInfo.machineName}`,
+              text: 'Fuck up'
+            });
+            console.log(emgMachineInfo.machineName);
+          }
+        )
+      }
+    );
+  }*/
 
   machineStatus: String;
 
