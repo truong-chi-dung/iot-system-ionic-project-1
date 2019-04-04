@@ -12,7 +12,7 @@ export class MachineService {
 
   constructor(private http: HttpClient) { }
 
-  getMachinesUrl = 'http://192.168.1.113:8080/nidec2/statusJson';
+  getMachinesUrl = 'http://192.168.1.115:8080/nidec2/statusJson';
 
   getMachines(): Observable<Machine[]> {
     return this.http.get<Machine[]>(this.getMachinesUrl);

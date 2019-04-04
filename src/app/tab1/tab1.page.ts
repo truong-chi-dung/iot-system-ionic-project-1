@@ -33,7 +33,7 @@ export class Tab1Page implements OnDestroy, OnInit{
   
   ngOnInit() {
     this.machinesMap$ = this.machineService.getMachines();
-    this.refreshMachineData$ = interval(5000)
+    this.refreshMachineData$ = interval(2000)
     .pipe(
       takeUntil(this.killTrigger),
       switchMap(()=>this.machinesMap$)
@@ -45,13 +45,15 @@ export class Tab1Page implements OnDestroy, OnInit{
     );
     this.emgMachines$.subscribe(
       (emgMachinesInfo) => {
+
         emgMachinesInfo.map(
+          
           emgMachineInfo => {
             this.localNotifications.schedule({
               title: `${emgMachineInfo.machineName}`,
-              text: 'Fuck up'
+              text: 'Emergency stop'
             });
-            console.log(emgMachineInfo.machineName);
+
           }
         )
       }
@@ -103,7 +105,7 @@ export class Tab1Page implements OnDestroy, OnInit{
     const alert = await this.alertController.create({
       header: `${machine.machineName} Detail`,
       subHeader: `${this.machineStatus}`,
-      message: 'This is the alert message'
+      message: `This is the detail of ${this.machineStatus}`
     });
 
     await alert.present();

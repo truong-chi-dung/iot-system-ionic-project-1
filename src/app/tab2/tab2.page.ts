@@ -14,12 +14,8 @@ export class Tab2Page {
   
   showNotification() {
     this.localNotifications.schedule({
-      title: 'Hell shit',
-      text: 'Fuck up',
-      actions: [
-        { id: 'yes', title: 'Yes' },
-        { id: 'no',  title: 'No' }
-      ]
+      title: 'Notification',
+      text: 'Testing Notification'
     });
   }
 
