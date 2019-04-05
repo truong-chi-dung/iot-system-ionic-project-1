@@ -47,7 +47,7 @@ export class Tab1Page implements OnDestroy, OnInit{
       (emgMachinesInfo) => {
 
         emgMachinesInfo.map(
-          
+
           emgMachineInfo => {
             this.localNotifications.schedule({
               title: `${emgMachineInfo.machineName}`,
@@ -105,7 +105,7 @@ export class Tab1Page implements OnDestroy, OnInit{
     const alert = await this.alertController.create({
       header: `${machine.machineName} Detail`,
       subHeader: `${this.machineStatus}`,
-      message: `This is the detail of ${this.machineStatus}`
+      message: `This is the detail of ${machine.machineName}`
     });
 
     await alert.present();
