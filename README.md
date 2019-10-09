@@ -13,4 +13,8 @@ ionic serve
 ## Features
 - Machines Monitoring: Display a list of all available machine and their operation status that getting from the system server.
 - Emergency Alarm: Push notification to Android terminal if the machine emergency stop.
+### Sample images
 
+![alt text](https://github.com/CDTruong/iotsystem/blob/master/sample-img/monitoring.png)
+
+![alt text](https://github.com/CDTruong/iotsystem/blob/master/sample-img/notification.png)
