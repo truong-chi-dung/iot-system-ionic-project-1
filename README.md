@@ -10,3 +10,7 @@ Running app on your browser
 ```
 ionic serve
 ```
+## Features
+- Machines Monitoring: Display a list of all available machine and their operation status that getting from the system server.
+- Emergency Alarm: Push notification to Android terminal if the machine emergency stop.
+
