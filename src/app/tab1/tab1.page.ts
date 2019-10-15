@@ -64,32 +64,6 @@ export class Tab1Page implements OnDestroy, OnInit{
     this.killTrigger.next();
   }  
 
-  /*public machines$: Observable<Machine[]>;
-  public emgMachines$: Observable<Machine[]>;
-
-  ngOnInit() {
-    
-    this.machines$ = this.machineService.getMachines();
-    
-    this.emgMachines$ = this.machineService.getMachines().pipe(
-      map(machines => machines.filter(machine => machine.status===2))
-    );
-
-    this.emgMachines$.subscribe(
-      (emgMachinesInfo) => {
-        emgMachinesInfo.map(
-          emgMachineInfo => {
-            this.localNotifications.schedule({
-              title: `${emgMachineInfo.machineName}`,
-              text: 'Fuck up'
-            });
-            console.log(emgMachineInfo.machineName);
-          }
-        )
-      }
-    );
-  }*/
-
   machineStatus: String;
 
   async onSelectMachine(machine: Machine) {    
